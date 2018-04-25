@@ -1,0 +1,18 @@
+.page-title {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: bold;
+    text-transform: uppercase;    
+}
+
+.table-button {
+    margin-right: 10px;
+}
+
+.table-button:last-child {
+    margin-right: 0;
+}
+
+.table.table-striped.table-bordered td:last-child {
+    text-align: center;
+}

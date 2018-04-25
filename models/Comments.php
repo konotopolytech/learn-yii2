@@ -8,14 +8,11 @@ use yii\db\Expression;
 
 class Comments extends ActiveRecord
 {
-    public $article_id;
-    public $comment;
-    public $date_create;
-    public $enabled;
-    
-  
+ 
     public function rules(){
         return [
+            [ 'article_id', 'required'],
+            [ ['article_id'], 'integer'],
             [ 'comment', 'required', 'message'=>'Please put the comment' ],
             [ 'enabled', 'boolean']
         ];
@@ -28,14 +25,14 @@ class Comments extends ActiveRecord
             [
                 'class' => TimestampBehavior::className(),
                 'createdAtAttribute' => 'date_create',
-                'updatedAtAttribute' => false,
+                'updatedAtAttribute' => false,                
                 'value' => new Expression('NOW()'),
             ],
         ];
     }
-  
-     public function getArticle()
+    
+    public function getArticle()
     {
-        return $this->hasOne(Articles::className(), ['id' => 'comment_id']);
+        return $this->hasOne(Articles::className(), ['id' => 'article_id']);
     }
 }

@@ -11,7 +11,7 @@ use yii\web\NotFoundHttpException;
 class ArticlesController extends Controller
 {
     public function actionIndex() {
-        $articles = Articles::find()->where(['public' => 1])->all();
+        $articles = Articles::find()->all();
 
         if ($articles === null) {
             throw new NotFoundHttpException('Articles not found');
