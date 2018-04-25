@@ -7,6 +7,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'defaultRoute' => 'articles',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -47,11 +48,14 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'articles/<id:\d+>' => 'articles/show',
+                'admin/comments/<id:\d+>' => 'admin/comments/index',
+                'admin/comments/update/<id:\d+>' => 'admin/comments/update',
+                'admin/comments/delete/<id:\d+>' => 'admin/comments/delete',
+                'admin/articles/<id:\d+>' => 'admin/articles/read',
+                'admin/articles/update/<id:\d+>' => 'admin/articles/update',
+                'admin/articles/delete/<id:\d+>' => 'admin/articles/delete',
                 '<controller>/<action>' => '<controller>/<action>',                
-				        'admin/articles/add' => 'admin/articles/add',
-				        'admin/articles/<id:\w+>' => 'admin/articles/read',
-				        'admin/articles/update/<id:\w+>' => 'admin/articles/update',
-				        'admin/articles/delete/<id:\w+>' => 'admin/articles/delete',
             ],
         ],
     ],
@@ -71,7 +75,7 @@ if (YII_ENV_DEV) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['127.0.0.1', '::1', '51.141.5.180'],
+        'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 

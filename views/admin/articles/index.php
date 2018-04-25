@@ -1,24 +1,12 @@
 <?php
-// use yii\helpers\Html;
-?>
-<!-- <h1>Admin: <?//= $title; ?></h1> -->
-<?php
-
-//   foreach($articles as $article){  
-//     echo $article->id . "<br/>";
-//     echo $article->title . "<br/>";    
-//     echo $article->date_create . "<br/><br/><br/>";
-
-//   }
-?>
-
-<?php
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
 use app\models\Articles;
 ?>
+
+<h1 class="page-title">Articles</h1>
 
 <h4><?= Html::a('Add article', ['admin/articles/add']) ?></h4>
 
@@ -51,22 +39,32 @@ echo GridView::widget([
         [
           'class' => 'yii\grid\ActionColumn',
           'header' => 'Actions',
-          'template' => '{view}{update}{delete}',
+          'template' => '{view}{update}{delete}{comments}',
+          'options' => ['class' => 'button-column'],
           'buttons' => [
             'view' => function ($url, $model) {
                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
-                            'title' => 'View',
+                    'title' => 'View',
+                    'class' => 'table-button'
                 ]);
             },
 
             'update' => function ($url, $model) {
                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                            'title' => 'Update',
+                    'title' => 'Update',
+                    'class' => 'table-button'
                 ]);
             },
             'delete' => function ($url, $model) {
                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                            'title' => 'Delete',
+                    'title' => 'Delete',
+                    'class' => 'table-button'
+                ]);
+            },
+            'comments' => function ($url, $model) {
+                return Html::a('<span class="glyphicon glyphicon-th-list"></span>', $url, [
+                    'title' => 'Comments',
+                    'class' => 'table-button'
                 ]);
             }
 
@@ -83,10 +81,12 @@ echo GridView::widget([
             }
             if ($action === 'delete') {
                 $url = Url::to(['admin/articles/delete/'. $model->id]);
-              
                 return $url;
             }
-
+            if ($action === 'comments') {
+                $url = Url::to(['admin/comments/'. $model->id]);
+                return $url;
+            }
           }
         ],
     ],

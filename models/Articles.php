@@ -8,7 +8,6 @@ use yii\db\Expression;
 
 class Articles extends ActiveRecord
 {
-  
     public static function tableName(){
         return 'articles';
     }
@@ -37,6 +36,7 @@ class Articles extends ActiveRecord
   
     public function getComments()
     {
-        return $this->hasMany(Comments::className(), ['comment_id' => 'id']);
+        return $this->hasMany(Comments::className(), ['article_id' => 'id']);
     }
 }
+      
