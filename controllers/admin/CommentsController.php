@@ -8,10 +8,27 @@ use app\models\Articles;
 use app\models\Comments;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 
 
 class CommentsController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    // Allow only for authenticated users
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+    
     public function actionIndex($id) {
         $comments = Comments::find()->where(['article_id' => $id])->orderBy(['id' => SORT_DESC]);
         $article = Articles::find()->where(['id' => $id])->one();

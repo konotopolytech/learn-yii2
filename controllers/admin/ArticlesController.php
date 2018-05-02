@@ -7,9 +7,27 @@ use yii\web\Controller;
 use app\models\Articles;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 
 class ArticlesController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+//                 'only' => ['read', 'update', 'delete', 'add'],
+                'rules' => [
+                    // Allow only for authenticated users
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+    
     public function actionIndex() {
         $articles = Articles::find()->all();
 
@@ -22,7 +40,7 @@ class ArticlesController extends Controller
 
 
     public function actionRead($id) {
-        $article = Articles::find()->where(['id' => $id, 'public'=>1])->one();
+        $article = Articles::find()->where(['id' => $id])->one();
                 
         if ($article === null) {
               throw new NotFoundHttpException('Article not found');
