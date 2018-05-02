@@ -13,13 +13,14 @@ use yii\web\Request;
 class ArticlesController extends Controller
 {
     const PUBLISHED = 1;
+    const PAGE_SIZE = 5;
     private $articles;
     private $comments;
   
-    function __construct($id, $module, $config = [] ) {
-      parent::__construct($id, $module, $config = [] );
-      $this->articles = new Articles;
-      $this->comments = new Comments;
+    function __construct($id, $module, $config = []) {
+        parent::__construct($id, $module, $config = []);
+        $this->articles = new Articles;
+        $this->comments = new Comments;
     }
   
       
@@ -27,7 +28,7 @@ class ArticlesController extends Controller
         $query = $this->articles->find()->where(['public' => self::PUBLISHED]);
         $countQuery = clone $query;
 
-        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 5]);
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => self::PAGE_SIZE]);
         $pages->pageSizeParam = true;
         
         $models = $query->offset($pages->offset)

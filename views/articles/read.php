@@ -10,6 +10,7 @@ use yii\widgets\ActiveForm;
         $this->params['breadcrumbs'][] = $article->title;
         echo $article->body . "<br/>";
         echo $article->date_create;
+    
     ?>
 </div>
 
